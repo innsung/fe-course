@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descdendent Selector</title>
+    <meta name="description" content="Descendent Selector">
+    <style>
+        /* 
+            descendent selector : 조상[space]자손
+            child selector : 부모[>]자식
+            인접한 sibilings selector : 기준태그[+]형제태그
+            모든 sibilings selector : 기준태그[~]형제태그
+        */
+        h1 {
+            color: blue;
+            background-color: aquamarine;
+        }
+        body li ul {
+            background-color: yellow;
+        }
+        #main-menu a {
+            color: red;
+        }
+        #sub-menu a {
+            color: green;
+        }
+        #sub-menu li > a {
+            text-decoration: none;
+        }
+        li#main-menu + li {
+            background-color: tomato;
+        }
+        li#main-menu + li > a {
+            color: yellow;
+            text-decoration: none;
+        }
+        h2 + p {
+            background-color: silver;
+        }
+        h2 ~ p {
+            color: blue;
+        }
+    </style>
+</head>
+<!-- 누구를 기준으로 하는지에 따라 자손이 달라짐, 기준점을 굉장히 잘 줘야함!-->
+<body>
+    <h1>Descendent Selecotr</h1>
+    <nav>
+        <ul>
+            <li id="main-menu">
+                <a href="#">menu1</a>
+                <ul id="sub-menu">
+                    <li><a href="#">sub-menu</a></li>
+                    <li><a href="#">sub-menu</a></li>
+                </ul>
+            </li>
+            <li><a href="#">menu2</a></li>
+            <li><a href="#">menu3</a></li>
+        </ul>
+    </nav>
+    <h2>sibilings Selecotr</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus cum ea optio? Voluptatem dolorum rem harum necessitatibus iusto nemo laudantium, exercitationem modi. Sed numquam perferendis voluptates consequuntur, quae asperiores quibusdam.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus cum ea optio? Voluptatem dolorum rem harum necessitatibus iusto nemo laudantium, exercitationem modi. Sed numquam perferendis voluptates consequuntur, quae asperiores quibusdam.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus cum ea optio? Voluptatem dolorum rem harum necessitatibus iusto nemo laudantium, exercitationem modi. Sed numquam perferendis voluptates consequuntur, quae asperiores quibusdam.</p>
+</body>
+</html>
