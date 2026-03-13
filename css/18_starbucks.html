@@ -57,6 +57,94 @@
         .header-menu-top li:last-child input{
             display: none;
         }
+        main {
+            width: 2000px;
+            margin: auto;
+            /* display: flex; */
+            /* justify-content: space-between; */
+        }
+        .background-image {
+            width: 1900px;
+            height: 650px;
+            /* border: 1px solid red; */
+            display: flex;
+            background-image: url("https://image.istarbucks.co.kr/upload/common/img/main/2026/2026_spring1_ph1_top_bg_260220.jpg");
+            align-items: center;
+            justify-content: center;
+            background-repeat: no-repeat;
+        }
+        .img1 {
+            /* border: 1px solid red; */
+            margin-right: 1200px;
+        }
+        .btn {
+            position: absolute;
+            left: 15%;
+            top: 60%;
+        }
+        .button {
+            width: 150px;
+            height: 50px;
+            color: blueviolet;
+            text-decoration: none;
+            text-align: center;
+            border: 1px solid purple;
+            background: none;
+        }
+        .s1 {
+            position: absolute;
+            left: 40%;
+        }
+        .s2 {
+            position: absolute;
+            top: 32%;
+            left: 50%;
+        }
+        .s3 {
+            position: absolute;
+            left: 57%;
+        }
+        .s4 {
+            position: absolute;
+            left: 70%;
+        }
+        .s5 {
+            position: absolute;
+            left: 80%;
+        }
+        .s1, .s2, .s3, .s4, .s5, .img1, .button {
+            opacity: 0;
+            animation: appr 2s ease forwards;
+        }
+        .img1 {
+            animation-delay: 0.5s;
+        }
+        .s1 {
+            animation-delay: 1s;
+        }
+        .s2 {
+            animation-delay: 1.5s;
+        }
+        .s3 {
+            animation-delay: 2s;
+        }
+        .s4 {
+            animation-delay: 2.5s;
+        }
+        .s5 {
+            animation-delay: 3s;
+        }
+        .button {
+            animation-delay: 3.5s;
+        }
+        @keyframes appr {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -90,5 +178,24 @@
             </nav>
         </div>
     </header>
+    <main>
+        <div class="background-image">
+            <div class="cls1">
+            <img src="https://image.istarbucks.co.kr/upload/common/img/main/2026/2026_spring1_ph1_top_slogan_260220.png" alt="background-image" class="img1">
+            </div>
+            <div class="btn">
+                <button class="button">자세히 보기</button>
+            </div>
+            <!-- <div class="season"> -->
+                <img src="https://image.istarbucks.co.kr/upload/common/img/main/2026/2026_spring1_ph1_top_drink01_260220.png" alt="s1" class="s1">
+                <img src="https://image.istarbucks.co.kr/upload/common/img/main/2026/2026_spring1_ph1_top_drink02_260220.png" alt="s2" class="s2">
+                <img src="https://image.istarbucks.co.kr/upload/common/img/main/2026/2026_spring1_ph1_top_drink03_260220.png" alt="s3" class="s3">
+                <img src="https://image.istarbucks.co.kr/upload/common/img/main/2026/2026_spring1_ph1_top_drink04_260220.png" alt="s4" class="s4">
+                <img src="https://image.istarbucks.co.kr/upload/common/img/main/2026/2026_spring1_ph1_top_drink05_260220.png" alt="s5" class="s5">
+            <!-- </div> -->
+        </div>
+
+
+    </main>
 </body>
 </html>
