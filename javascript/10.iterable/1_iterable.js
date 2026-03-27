@@ -1,0 +1,46 @@
+/**
+ * Iterable(순회) Object : Iteration Protocol을 준수하는 객체
+ * - for .. of 구문 
+ * - String, Array, Set, Map
+ * - ...(Spread Operator : 스프레드 연산자) : 블록안에서 객체의 데이터를 전개함
+ * - ...(Rest Parameter) : 매개변수 모든 값을 배열로 저장
+ * - ...(Destructring Object : 구조분해 할당) : 객체를 분해한 후 변수에 할당
+*/
+//String 객체 생성 후 for..of 구문 사용
+let strList = new String('Hello~ JavaScripit!!');
+for ( let str of strList) {
+    console.log(str);
+}
+
+//Number 객체 생성 후 for..of 구문 사용 불가 Number 클래스는 iteraiton protocole을 준수하지 않음
+// let numbers = new Number(12345);
+// for (let number of numbers) {
+//         console.log(number);
+// }
+
+//Array 객체 생성 후 for..if 사용
+let numbers = [1, 2, 3 ,4, 5];
+console.log();
+for (let number of numbers) {
+    console.log(number);
+}
+
+//forEach()
+numbers.forEach((number) => console.log(`number=${number}`));
+//find - 3, findIndex() - 3의 인덱스 주소
+let findNumber = numbers.find(number => number === 3);
+let findIndex = numbers.findIndex(number => number === 3);
+console.log(`find = ${findNumber}`);
+console.log(`findIndex = ${findIndex}`);
+
+//filter() - 짝수만 반환
+let evenNumbers = numbers.filter(number => !(number%2===0));
+console.log();
+console.log(evenNumbers);
+
+//map() - 모든 요소에 +10
+let addNumbers = numbers.map(number => number+10);
+console.log(addNumbers);
+
+
+
