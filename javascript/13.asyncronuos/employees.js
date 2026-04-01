@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
-    show();
+    showEmployees();
 })
-
+//1. JSON 데이터 가져오기
 const data_url = 'http://127.0.0.1:5500/javascript/13.asyncronuos/employees.json';
 
 const getJson = async () => {
@@ -9,12 +9,12 @@ const getJson = async () => {
     return response.json();
 }
 
-const show = async () => {
-    let jsonData = await getJson();
-    console.log('jsonData => ', jsonData);
+
+const showEmployees = async () => {
+    let employees = await getJson();
 
     let output = `
-        <h1>${jsonData.title}</h1>
+        <h2>${employees.title}</h2>
         <table border=1>
             <tr>
                 <th>NO</th>
@@ -24,7 +24,7 @@ const show = async () => {
             </tr>
             ${  //자바스크립트 코드
                 
-                jsonData.list.map((emp, idx) => 
+                employees.list.map((emp, idx) => 
                     `<tr>
                         <td>${idx+1}</td>
                         <td>${emp.name}</td>
@@ -35,7 +35,6 @@ const show = async () => {
             }
         </table>
     `;
-    // console.log(output);
     
     document.querySelector('#content').innerHTML = output;
 
