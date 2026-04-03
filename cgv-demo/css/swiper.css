@@ -1,0 +1,9 @@
+.swiper {
+    border: 1px solid gray;
+    width: 1300px;
+    height: 500px;
+}
+
+.swiper-img{
+    width: 100%;
+}
