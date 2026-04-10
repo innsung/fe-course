@@ -1,5 +1,6 @@
 import { useState } from "react";
 import BasicCounter from './components/counter/BasicCounter.jsx';
+import Counter from './components/counter/Counter.jsx';
 
 export default function App() {
     const [totalCount, setTotalCount] = useState(0);
@@ -9,11 +10,13 @@ export default function App() {
     }
     return(
         <>
-            <h1>Appcounter</h1>
+            {/* <h1>Appcounter</h1>
             <h1>Total Count :: <span><b>{totalCount}</b></span></h1>
             <BasicCounter click={handleTotalCount} total={totalCount}/>
             <BasicCounter click={handleTotalCount} total={totalCount}/>
             <BasicCounter click={handleTotalCount} total={totalCount}/>
+            <hr /> */}
+            <Counter />
         </>
     )
 }
