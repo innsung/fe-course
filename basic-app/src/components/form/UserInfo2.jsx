@@ -9,17 +9,11 @@ import TextInput from './TextInput.jsx';
 
 export default function UserInfo() {
     const forms = [
-        {label: "이름", type: "text", name: "name"},
-        {label: "나이", type: "text", name: "age"},
-        {label: "주소", type: "text", name: "address"},
-        {label: "직업", type: "text", name: "job"},
+        {label: "이름", type: "text", name: "name", isRequired: true},
+        {label: "나이", type: "text", name: "age" , isRequired: true},
+        {label: "주소", type: "text", name: "address", isRequired: false},
+        {label: "직업", type: "text", name: "job", isRequired: false},
     ];
-    // const refs = {
-    //     nameRef: useRef(null),
-    //     ageRef: useRef(null),
-    //     addressRef: useRef(null),
-    //     jobRef: useRef(null)
-    // }
     const refs = useRef({});
     const [form, setForm] = useState({name:'', age:'', address:'', job:''});
 
@@ -27,12 +21,8 @@ export default function UserInfo() {
         const {name, value} = e.target;
         setForm({...form, [name]:value});
     }
-    console.log('form--> \n', form);    
-    console.log('refs--> \n', refs);    
-
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if(validateUserInfo2(refs)) {        
             console.log('submit => ', form);            
         }
@@ -45,21 +35,15 @@ export default function UserInfo() {
                 <ul> 
                     {forms.map((item, idx) => 
                         <li key={idx}>
+                            {item.isRequired && <span>❤️💕</span>}
                             <label htmlFor="name">{item.label}</label>
                             { !form?.[item.name]?.trim() && <span style={{color:'red', fontSize:'0.6rem'}}> {item.label}을 입력해주세요</span> }
                             <div>
                                 <TextInput  item={item}
                                             value={form[item.name]}
-                                            handleChange={handleChange}
-                                            inputRef={(e) => refs[item.name] = e}
+                                            handleChange={handleChange} 
+                                            inputRef={(e) => refs.current[item.name] = e}                                           
                                 />
-                                {/* <input  type="text" 
-                                        id="name" 
-                                        name="name"
-                                        value={form.name}
-                                        onChange={handleChange}
-                                        ref={refs.nameRef}                                    
-                                        /> */}
                             </div>
                         </li>
                     )}                   
