@@ -8,7 +8,8 @@ import { createRoot } from 'react-dom/client'
 // import App from './AppCounter.jsx'
 // import App from './components/counter/Counter.jsx'
 // import App from './AppForm.jsx';
- import App from './AppEffect.jsx';
+//  import App from './AppEffect.jsx';
+import App from './AppAirbnb.jsx'
 
 
 createRoot(document.getElementById('root')).render(
