@@ -1,6 +1,6 @@
 import './App.css';
-import { useState, useEffect} from 'react';
-import { fetchData } from '../util/fetch.js';
+import { useState, useEffect } from 'react';
+import { fetchData } from './util/fetch.js';
 import Header from './components/Header.jsx';
 import Content from './components/Content.jsx';
 import Footer from './components/Footer.jsx';
@@ -15,12 +15,16 @@ export default function App() {
     loadData();
   }, []);
 
+  console.log("data :: ", data);
   
+
   return (
     <>
       <Header data={data?.header} />
-      <Content />
+      <Content data={data?.content}/>
       <Footer />
     </>
   )
 }
+
+

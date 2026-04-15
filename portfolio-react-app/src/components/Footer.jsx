@@ -1,7 +1,7 @@
 export default function Footer() {
-    return(
+    return (
         <>
-            <h1>Header component</h1>
+            <h1>Footer component!</h1>
         </>
     )
 }
