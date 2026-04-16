@@ -308,5 +308,13 @@ loginCheck()
             )
         }
 
-
+12. SPA - Single Ppge Application
+    (1) 개념 : 한 개의 HTML 페이지에서 모든 화면 전환의 전환이 이루어짐
+        - 페이지 이동 시 새로고침 현상이 밸행하지 않음
+2  MPA(Multi Page, Application),
+    - 메뉴별 독립절인 페에지를 생성하여 화면 전환이 우러이짐
+    - 페이지 이동 시 새로고침 현상이 발생함
+3. 라우팅(rOunting)
+    - 메뉴로 구성되 컴포넌트 페이지로 이동하는 방식=\
+    - react -router-dom 페키지 : link, navLink 컴포넌트 포함
     
