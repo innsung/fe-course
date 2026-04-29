@@ -1,140 +1,215 @@
-/***************************************************
+/********************************
 	학적과 수강신청 실습 데이터베이스
-***************************************************/
+********************************/
 -- 데이터베이스 생성
-create database if not exists `enroll2026`;
+CREATE DATABASE IF NOT EXISTS `enroll2026`;
 show databases;
 use enroll2026;
 select database();
 
+-- [instructor:강사] 테이블 생성
+show tables;
 create table instructor(
-	instructor_no 		int				auto_increment		primary key,
-    instructor_name 	varchar(10),
+	instructor_no 		int			auto_increment 		primary key,
+    instructor_name		varchar(5)	not null,
     age					int,
-    gender				char(2)
+    gender				char(1)
 );
-select * from instructor;
+desc instructor;
+
+-- [student : 학생] 테이블 생성
+create table student(
+	student_id		int			auto_increment		primary key,
+    student_name	varchar(5)	not null,
+    address			varchar(50)
+);
+desc student;
+
+-- [subject : 과목] 테이블 생성
 create table subject(
-	subject_no			int				auto_increment		primary key,
-    subject_name		varchar(30),		
-    class_room			varchar(30),
-    instructor_no		int,
-    constraint fk_subject_instructor_no foreign key(instructor_no)
-    references instructor(instructor_no)
-);	
-select * from subject;
+	subject_no		int			auto_increment 		primary key,
+    subject_name	varchar(30)	not null,
+	class_room		varchar(20),
+    instructor_no	int			not null,
+    constraint fk_subject_instructor_no	foreign key(instructor_no)
+		references instructor(instructor_no)
+        on delete cascade
+        on update cascade
+);
+desc subject;
+select * from information_schema.table_constraints
+	where table_name = 'subject';
+
+-- [class_time : 강의시간] 테이블 생성
 create table class_time(
 	time_id		int			auto_increment		primary key,
-    subject_no	int,
-    class_time	varchar(20),
-    constraint fk_subject_no_class_time foreign key(subject_no)
-    references subject(subject_no)
+    class_time	varchar(10),
+    subject_no 	int			not null,
+    constraint fk_class_time_subject_no		foreign key(subject_no)
+		references	subject(subject_no)
+			on delete cascade
+            on update cascade
 );
-select * from class_time;
-create table student(
-	student_id		int				auto_increment		primary key,
-    student_name	varchar(20),
-    address			varchar(30)
-);
-select * from student;
+desc class_time;
+select * from information_schema.table_constraints
+	where table_name = 'class_time';
+    
+
+-- [enrollment : 등록] 테이블 생성
 create table enrollment(
-	student_id		int,
-    subject_no		int,
-    grade			char(10),
-    constraint fk_student_id_enrollment foreign key(student_id)
-    references student(student_id),
-	constraint fk_subject_no_enrollment foreign key(subject_no)
-    references subject(subject_no)
+	student_id		int		not null,
+    subject_no		int		not null,
+    grade			char(1),
+    constraint fk_enrollment_student_id		foreign key(student_id)
+		references	student(student_id)
+			on delete cascade
+            on update cascade,
+	constraint fk_subject_subject_no		foreign key(subject_no)
+		references subject(subject_no)
+			on delete cascade
+            on update cascade
 );
-select * from enrollment;
-
-
+desc enrollment;
+select * from information_schema.table_constraints
+	where table_name = 'enrollment';
+    
+-- 강사 테이블 데이터 입력
+desc instructor;
+select * from instructor;
 insert into instructor(instructor_name, age, gender)
 	values('홍길동', 30, 'M');
 insert into instructor(instructor_name, age, gender)
-	values('홍길순', 30, 'F');
+	values('스미스', 35, 'M');
 insert into instructor(instructor_name, age, gender)
-	values('이순신', 35, 'M');
-insert into instructor(instructor_name, age, gender)
-	values('신사임당', 45, 'F');
-insert into instructor(instructor_name, age, gender)
-	values('강감찬', 40, 'M');
+	values('김영희', 30, 'W');
+update instructor set gender = 'F' where instructor_no = 3;
 
-insert into student(student_name, address)
-	values('유비', '서울시 강남구'); 
-insert into student(student_name, address)
-	values('관우', '서울시 강북구');   
-insert into student(student_name, address)
-	values('장비', '경기도 수원시');   
-insert into student(student_name, address)
-	values('조조', '서울시 동작구');   
-insert into student(student_name, address)
-	values('제갈량', '경기도 화성시');   
+-- 학생 테이블 데이터 입력
+-- 학생 테이블의 address 컬럼에 default 제약 추가 : '서울시 강남구'
+alter table student
+	modify address varchar(30)		default '서울시 강남구';
 
+desc student;
+select * from student;
+insert into student(student_name) values('정효리');
+insert into student(student_name) values('오감자');
+insert into student(student_name) values('안경태');
+insert into student(student_name) values('정주고');
+insert into student(student_name) values('고소해');
+
+-- [subject : 과목] 테이블 데이터 입력
+desc subject;
+select * from subject;
 insert into subject(subject_name, class_room, instructor_no)
-	values('국어', 'a반', 1);   
+	values('MySQL', '101호', 1);
 insert into subject(subject_name, class_room, instructor_no)
-	values('수학', 'b반', 2);   
+	values('HTML', '103호', 2);
 insert into subject(subject_name, class_room, instructor_no)
-	values('사회', 'c반', 3);   
+	values('Oracle', '201호', 1);
 insert into subject(subject_name, class_room, instructor_no)
-	values('과학', 'd반', 4);   
+	values('React', '301호', 3);
 insert into subject(subject_name, class_room, instructor_no)
-	values('영어', 'e반', 5);   
+	values('NodeJS', '303호', 3);
     
-insert into class_time(subject_no, class_time)
-	values(1, '1교시');
-insert into class_time(subject_no, class_time)
-	values(2, '2교시');
-insert into class_time(subject_no, class_time)
-	values(3, '3교시');
-insert into class_time(subject_no, class_time)
-	values(4, '4교시');
-insert into class_time(subject_no, class_time)
-	values(5, '5교시');
+-- [class_time : 강의시간] 테이블 데이터 입력
+desc class_time;
+select * from class_time;
+insert into class_time(class_time, subject_no) values('120분', 1);
+insert into class_time(class_time, subject_no) values('160분', 2);
+insert into class_time(class_time, subject_no) values('200분', 3);
+insert into class_time(class_time, subject_no) values('120분', 4);
+insert into class_time(class_time, subject_no) values('100분', 5);
+
+-- [enrollment : 등록] 테이블 데이터 입력
+desc enrollment;
+select * from student;
+select * from enrollment;
+insert into enrollment(student_id, subject_no, grade) values(1, 1, 'A');
+insert into enrollment(student_id, subject_no, grade) values(1, 2, 'B');
+insert into enrollment(student_id, subject_no, grade) values(2, 1, 'C');
+insert into enrollment(student_id, subject_no, grade) values(3, 1, 'A');
+insert into enrollment(student_id, subject_no, grade) values(3, 3, 'A');
+insert into enrollment(student_id, subject_no, grade) values(4, 2, 'D');
+insert into enrollment(student_id, subject_no, grade) values(4, 1, 'A');
+insert into enrollment(student_id, subject_no, grade) values(1, 5, 'C');
+insert into enrollment(student_id, subject_no, grade) values(2, 3, 'A');
+
+-- A학점을 받은 학생의 정보를 조회
+select * from student;
+select student_id from enrollment where grade = 'A';
+select * from student where grade = 'A';
+select  s.student_name as '학생명',
+		s.address as '주소',
+        e.grade as '학점'
+from student s, enrollment e
+	where s.student_id = e.student_id
+		and e.grade = 'A';
+        
+-- C학점을 받은 학생의 정보와 과목명을 조회
+select  s.student_name,
+		s.address,
+        su.subject_name,
+        su.class_room,
+        e.grade
+from student s, enrollment e, subject su
+	where s.student_id = e.student_id
+		and e.subject_no = su.subject_no
+        and e.grade = 'C';
+
+select  s.student_name,
+		s.address,
+        su.subject_name,
+        su.class_room,
+        e.grade
+from student s inner join enrollment e on s.student_id = e.student_id
+				inner join subject su on su.subject_no = e.subject_no
+	where e.grade = 'C';
     
-insert into enrollment(student_id, subject_no, grade)
-	values(1, 1, '3학점');
-insert into enrollment(student_id, subject_no, grade)
-	values(2, 2, '3학점');
-insert into enrollment(student_id, subject_no, grade)
-	values(3, 3, '2학점');
-insert into enrollment(student_id, subject_no, grade)
-	values(4, 4, '1학점');
-insert into enrollment(student_id, subject_no, grade)
-	values(5, 5, '2학점');
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+-- 100분 강의하는 과목정보와 강사정보를 조회
+select  i.instructor_name,
+		i.age,
+        i.gender,
+        s.subject_name,
+        s.class_room,
+        c.class_time
+from subject s, class_time c, instructor i
+	where s.subject_no = c.subject_no
+		and s.instructor_no = i.instructor_no
+        and c.class_time = '100분';
+        
+-- 100분 강의하는 강사정보, 과목명을 조회 => 서브쿼리사용, 과목명(스칼라 서브쿼리)
+select * from instructor where instructor_no in( 
+	select instructor_no from subject where subject_no in(
+		select subject_no from class_time where class_time = '100분'));
+        
+select  instructor_name,
+		instructor_no,
+		age,
+        gender
+	from instructor
+    where instructor_no = (select instructor_no
+							from subject
+								where subject_no = (select subject_no from class_time
+														where class_time='100분'));
+							
+        
+        
+-- 김영희 강사가 강의하는 모든 과목 조회
+select * from subject where instructor_no in (
+select instructor_no from instructor where instructor_name = '김영희');
+
+-- 홍길동 강사가 강의하는 과목과 과목을 수강한 학생정보와 성적을 조회
+select * from student st, enrollment e where st.student_id in(
+	select student_id from enrollment e where e.subject_no in(
+		select subject_no from subject su where su.instructor_no in(
+			select instructor_no from instructor i where i.instructor_name = '홍길동')));
+            
+-- 모든 강사가 강의하는 과목과 성적 조회
+select count(*) from instructor;  -- 4
+select count(distinct instructor_no) from subject; -- 3
+select * 
+	from instructor i left outer join	subject su
+					  on i.instructor_no = su.instructor_no;
 
 
 
@@ -142,11 +217,39 @@ insert into enrollment(student_id, subject_no, grade)
 
 
 
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
